@@ -18,10 +18,8 @@ function App() {
         throw new Error('Could not fetch data :(')
       }
       const data = await response.json();
-      console.log(data);
 
       const transformedList = data.map((listData) => {
-        console.log(listData._id);
         return {
           id: listData._id,
           name: listData.name
@@ -40,8 +38,20 @@ function App() {
     fetchLinkList();
   }, [fetchLinkList])
 
-  function addListHandler(link) {
-    console.log(link)
+  async function addListHandler(link) {
+    const json_str = JSON.stringify(link)
+    console.log(json_str)
+    const response = await fetch('/links', {
+      method: 'POST',
+      body: json_str,
+      headers: {
+        'Content-Type': 'application/json'
+      },
+    })
+    if (!response.ok) {
+      throw new Error('Could not POST data :(')
+    }
+
   }
 
   let content = <p>Found no links.</p>;
@@ -61,7 +71,7 @@ function App() {
   return (
     <React.Fragment>
       <section>
-        <AddLink onAddMovie={addListHandler} />
+        <AddLink onAddLink={addListHandler} />
       </section>
       <section>
         <button onClick={fetchLinkList}>Fetch Movies</button>
