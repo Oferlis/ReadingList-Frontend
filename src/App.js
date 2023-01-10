@@ -22,7 +22,8 @@ function App() {
       const transformedList = data.map((listData) => {
         return {
           id: listData._id,
-          name: listData.name
+          name: listData.name,
+          link: listData.link
         }
       })
       

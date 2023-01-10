@@ -1,6 +1,10 @@
+const onClickHandler = (props) => {
+    window.open(props.link, '_blank', 'noopener,noreferrer')
+}
+
 const Link = (props) => {
     return (
-        <li>
+        <li onClick={onClickHandler(props)}>
             <h2>{props.name}</h2>
         </li>
     )
